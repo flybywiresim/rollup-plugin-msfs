@@ -25,12 +25,17 @@ Rollup plugin for bundling Microsoft Flight Simulator HTML instruments
 ## Example usage
 
 ```js
-template({
-    name,
-    config,
-    getCssBundle() {
-        return fs.readFileSync(`${TMPDIR}/${name}-gen.css`).toString();
-    },
-    outputDir: `${__dirname}/../../A32NX/html_ui/Pages/VCockpit/Instruments/generated`,
-}),
+const template = require('@flybywiresim/rollup-plugin-msfs');
+
+/* ... */
+
+    template({
+        name,
+        config,
+        getCssBundle() {
+            return fs.readFileSync(`${TMPDIR}/${name}-gen.css`).toString();
+        },
+        outputDir: `${__dirname}/../../A32NX/html_ui/Pages/VCockpit/Instruments/generated`,
+    }),
+}
 ```
