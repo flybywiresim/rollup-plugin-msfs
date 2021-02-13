@@ -3,9 +3,9 @@
 
 [![Discord](https://img.shields.io/discord/738864299392630914.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/UjzuHMU)
 
-[![GitHub latest release version](https://img.shields.io/github/v/release/flybywiresim/rollup-plugin-msfs.svg?style=flat)](https://github.com/flybywiresim/a32nx/releases/latest)
-[![Github All Releases download count](https://img.shields.io/github/downloads/flybywiresim/rollup-plugin-msfs/total.svg?style=flat)](https://github.com/flybywiresim/a32nx/releases/latest)
-[![GitHub contributors](https://img.shields.io/github/contributors/flybywiresim/rollup-plugin-msfs.svg?style=flat)](https://github.com/flybywiresim/a32nx/graphs/contributors)
+[![GitHub latest release version](https://img.shields.io/github/v/release/flybywiresim/rollup-plugin-msfs.svg?style=flat)](https://github.com/flybywiresim/rollup-plugin-msfs/releases/latest)
+[![Github All Releases download count](https://img.shields.io/github/downloads/flybywiresim/rollup-plugin-msfs/total.svg?style=flat)](https://github.com/flybywiresim/rollup-plugin-msfs/releases/latest)
+[![GitHub contributors](https://img.shields.io/github/contributors/flybywiresim/rollup-plugin-msfs.svg?style=flat)](https://github.com/flybywiresim/rollup-plugin-msfs/graphs/contributors)
 
 ## About
 
