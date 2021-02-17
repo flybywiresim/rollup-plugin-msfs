@@ -1,6 +1,6 @@
 {
   "name": "@flybywiresim/rollup-plugin-msfs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rollup plugin for bundling Microsoft Flight Simulator HTML instruments",
   "main": "rollup.js",
   "author": "FlyByWire Simulations",
