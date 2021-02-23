@@ -39,10 +39,10 @@ const html = (imports) => `
     </style>
 </script>
 
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/generated/INSTRUMENT_NAME/template.js" import-async="false"></script>
 ${imports.map(i => 
-    `<script type="text/html" import-script="${i}"></script>\n`
+    `<script type="text/html" import-script="${i}" import-async="false"></script>\n`
 )}
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/generated/INSTRUMENT_NAME/template.js" import-async="false"></script>
 `;
 
 const js = `
