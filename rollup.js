@@ -11,7 +11,7 @@ const trim = (text) => `${text.trimStart().trimEnd()}\n`;
 const replace = (s, search, replacement) => s.split(search).join(replacement);
 
 module.exports = ({
-    name, config, outputDir, getCssBundle,
+    name, config, imports = [], outputDir, getCssBundle,
 }) => ({
     name: 'template',
     writeBundle(_config, bundle) {
@@ -31,7 +31,7 @@ module.exports = ({
         };
 
         // Replace stuff in both the HTML and JS
-        const templateHtml = process(html);
+        const templateHtml = process(html(imports));
         const templateJs = process(js);
 
         // Write output

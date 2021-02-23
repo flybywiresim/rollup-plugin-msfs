@@ -18,7 +18,7 @@
 
 'use strict';
 
-const html = `
+const html = (imports) => `
 <script type="text/html" id="A32NX_INSTRUMENT_NAME_TEMPLATE">
     <div id="A32NX_REACT_MOUNT">
         <h1>If you're seeing this, React didn't load.</h1>
@@ -39,8 +39,10 @@ const html = `
     </style>
 </script>
 
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/generated/INSTRUMENT_NAME/template.js"></script>
-
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/generated/INSTRUMENT_NAME/template.js" import-async="false"></script>
+${imports.map(i => 
+    `<script type="text/html" import-script="${i}"></script>\n`
+)}
 `;
 
 const js = `
