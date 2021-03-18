@@ -13,12 +13,15 @@ Rollup plugin for bundling Microsoft Flight Simulator HTML instruments
 
 ## Configuration
 
-```ts
+```
 {
-    name: string, // Name of instrument
-    config: { index: string, isInteractive: boolean }, // Instrument configuration
-    getCssBundle: () => string, // Function to obtain the instrument CSS bundle contents
-    outputDir: string, // Output directory for instrument files
+    name: string,                                       // Name of instrument (must be globally unique to all addons)
+    instrumentDir?: string,                             // Name of instrument ouptut directory (sub-directory of `outputDir`). Defaults to `name`
+    elementName?: string,                               // Name of custom element
+    config: { index: string, isInteractive: boolean },  // Instrument configuration
+    imports?: string[],                                 // List of HTML/JS imports to add to the template HTML file. Defaults to none 
+    getCssBundle: () => string,                         // Function to obtain the instrument CSS bundle contents
+    outputDir: string,                                  // Output directory for instrument files
 }
 ```
 
@@ -27,15 +30,17 @@ Rollup plugin for bundling Microsoft Flight Simulator HTML instruments
 ```js
 const template = require('@flybywiresim/rollup-plugin-msfs');
 
-/* ... */
-
+    // other plugins ...
     template({
-        name,
+        name: 'A380X_MFD',
+        instrumentDir: 'MFD',
+        elementName: 'a380x-mfd-element',
         config,
+        imports: ['/JS/dataStorage.js'],
         getCssBundle() {
-            return fs.readFileSync(`${TMPDIR}/${name}-gen.css`).toString();
+            return fs.readFileSync(`${TMPDIR}/A380X-MFD-gen.css`).toString();
         },
-        outputDir: `${__dirname}/../../A32NX/html_ui/Pages/VCockpit/Instruments/generated`,
+        outputDir: `${__dirname}/../../A380X/html_ui/Pages/VCockpit/Instruments/a380x`,
     }),
 }
 ```
