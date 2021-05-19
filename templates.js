@@ -24,9 +24,7 @@
 
 'use strict';
 
-const { paramCase } = require('change-case');
-
-const html = (name, outputDir, imports, css, js) => `
+const html = (name, finalOutputDir, imports, css, js) => `
 <script type="text/html" id="${name}_TEMPLATE">
     <div id="MSFS_REACT_MOUNT">
         <h1>If you're seeing this, React didn't load.</h1>
@@ -47,10 +45,8 @@ const html = (name, outputDir, imports, css, js) => `
     </style>
 </script>
 
-${imports.map(i => 
-    `<script type="text/html" import-script="${i}" import-async="false"></script>\n`
-)}
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/${outputDir}/template.js" import-async="false"></script>
+${imports.map((i) => `<script type="text/html" import-script="${i}" import-async="false"></script>\n`)}
+<script type="text/html" import-script="${finalOutputDir}/template.js" import-async="false"></script>
 `;
 
 const js = (name, isInteractive, elementName) => `
@@ -117,7 +113,7 @@ class ${name}_Logic extends BaseInstrument {
     }
 }
 
-registerInstrument('${elementName || paramCase(name)}-element', ${name}_Logic);
+registerInstrument('${elementName}', ${name}_Logic);
 `;
 
 module.exports = [html, js];

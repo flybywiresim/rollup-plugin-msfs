@@ -24,26 +24,35 @@
 
 'use strict';
 
+const OUTPUT_DIR_ROOT = '/Pages/VCockpit/Instruments/';
+
 const fs = require('fs');
-const { paramCase } = require("change-case");
+const { paramCase } = require('change-case');
 const [html, js] = require('./templates.js');
 
 const trim = (text) => `${text.trimStart().trimEnd()}\n`;
 
-module.exports = ({
-    name, instrumentDir = name, elementName, config, imports = [], outputDir, getCssBundle,
-}) => ({
+module.exports = ({ name, jsBundle = 'bundle.js', cssBundle = 'bundle.css', instrumentDir = name, elementName, config, imports = [], outputDir }) => ({
     name: 'msfs',
     writeBundle(_config, bundle) {
-        const { code: jsCode } = bundle[`${name}-gen.js`];
-        const cssCode = getCssBundle();
+        const { code: jsCode } = bundle[jsBundle];
+        const { source: cssCode } = bundle[cssBundle];
 
         if (config.isInteractive === undefined) {
-            console.warn('(rollup-plugin-msfs): config.isInteractive not provided, defaulting to false');
+            this.warn({ message: 'config.isInteractive not provided, defaulting to false.' });
             config.isInteractive = false;
         }
 
-        const processedHtml = html(name, instrumentDir, imports, cssCode, jsCode);
+        const relativeOutputDirStart = outputDir.indexOf(OUTPUT_DIR_ROOT);
+
+        if (relativeOutputDirStart === -1) {
+            this.error({ message: `outputDir must contain '${OUTPUT_DIR_ROOT}'` });
+        }
+
+        const relativeOutputDir = outputDir.substring(relativeOutputDirStart);
+        const finalOutputDir = `${relativeOutputDir}/${instrumentDir}`;
+
+        const processedHtml = html(name, finalOutputDir, imports, cssCode, jsCode);
         const processedJs = js(name, config.isInteractive, elementName || paramCase(name));
 
         // Write output
