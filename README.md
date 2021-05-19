@@ -16,12 +16,13 @@ Rollup plugin for bundling Microsoft Flight Simulator HTML instruments
 ```
 {
     name: string,                                       // Name of instrument (must be globally unique to all addons)
-    instrumentDir?: string,                             // Name of instrument ouptut directory (sub-directory of `outputDir`). Defaults to `name`
-    elementName?: string,                               // Name of custom element
-    config: { index: string, isInteractive: boolean },  // Instrument configuration
-    imports?: string[],                                 // List of HTML/JS imports to add to the template HTML file. Defaults to none 
-    getCssBundle: () => string,                         // Function to obtain the instrument CSS bundle contents
+    elementName: string,                                // Name of custom element
     outputDir: string,                                  // Output directory for instrument files
+    config: { index: string, isInteractive: boolean },  // Instrument configuration
+    instrumentDir?: string,                             // Name of instrument ouptut directory (sub-directory of `outputDir`). Defaults to `name`
+    jsBundle?: string,                                  // Name of JS rollup bundle. Defaults to bundle.js
+    cssBundle?: string                                  // Name of CSS rollup bundle. Defaults to bundle.css
+    imports?: string[],                                 // List of HTML/JS imports to add to the template HTML file. Defaults to none 
 }
 ```
 
@@ -32,15 +33,11 @@ const template = require('@flybywiresim/rollup-plugin-msfs');
 
     // other plugins ...
     template({
-        name: 'A380X_MFD',
-        instrumentDir: 'MFD',
+        name: 'MFD',
         elementName: 'a380x-mfd-element',
         config,
         imports: ['/JS/dataStorage.js'],
-        getCssBundle() {
-            return fs.readFileSync(`${TMPDIR}/A380X-MFD-gen.css`).toString();
-        },
-        outputDir: `${__dirname}/../../A380X/html_ui/Pages/VCockpit/Instruments/a380x`,
+        outputDir: `${__dirname}/../../A380X/html_ui/Pages/VCockpit/Instruments/A380X`,
     }),
 }
 ```
