@@ -53,7 +53,7 @@ module.exports = ({ name, jsBundle = 'bundle.js', cssBundle = 'bundle.css', inst
         const relativeOutputDir = outputDir.substring(relativeOutputDirStart);
         const finalOutputDir = path.join(relativeOutputDir, instrumentDir);
 
-        const processedHtml = html(name, finalOutputDir, imports, cssCode, jsCode);
+        const processedHtml = html(name, finalOutputDir.replace(/\\/g, "/"), imports, cssCode, jsCode);
         const processedJs = js(name, config.isInteractive, elementName || paramCase(name));
 
         // Write output
