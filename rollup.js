@@ -24,11 +24,12 @@
 
 'use strict';
 
-const OUTPUT_DIR_ROOT = '/Pages/VCockpit/Instruments/';
-
+const path = require('path');
 const fs = require('fs');
 const { paramCase } = require('change-case');
 const [html, js] = require('./templates.js');
+
+const OUTPUT_DIR_ROOT = path.normalize('/Pages/VCockpit/Instruments');
 
 const trim = (text) => `${text.trimStart().trimEnd()}\n`;
 
@@ -46,18 +47,18 @@ module.exports = ({ name, jsBundle = 'bundle.js', cssBundle = 'bundle.css', inst
         const relativeOutputDirStart = outputDir.indexOf(OUTPUT_DIR_ROOT);
 
         if (relativeOutputDirStart === -1) {
-            this.error({ message: `outputDir must contain '${OUTPUT_DIR_ROOT}'` });
+            this.error({ message: `outputDir must contain '${OUTPUT_DIR_ROOT}', was: ${outputDir}` });
         }
 
         const relativeOutputDir = outputDir.substring(relativeOutputDirStart);
-        const finalOutputDir = `${relativeOutputDir}/${instrumentDir}`;
+        const finalOutputDir = path.join(relativeOutputDir, instrumentDir);
 
-        const processedHtml = html(name, finalOutputDir, imports, cssCode, jsCode);
+        const processedHtml = html(name, finalOutputDir.replace(/\\/g, "/"), imports, cssCode, jsCode);
         const processedJs = js(name, config.isInteractive, elementName || paramCase(name));
 
         // Write output
-        fs.mkdirSync(`${outputDir}/${instrumentDir}`, { recursive: true });
-        fs.writeFileSync(`${outputDir}/${instrumentDir}/template.html`, trim(processedHtml));
-        fs.writeFileSync(`${outputDir}/${instrumentDir}/template.js`, trim(processedJs));
+        fs.mkdirSync(path.join(outputDir, instrumentDir), { recursive: true });
+        fs.writeFileSync(path.join(outputDir, instrumentDir, 'template.html'), trim(processedHtml));
+        fs.writeFileSync(path.join(outputDir, instrumentDir, 'template.js'), trim(processedJs));
     },
 });
